@@ -2,18 +2,19 @@ package hhplus.lecture.domain.lectureSchedule;
 
 import hhplus.lecture.domain.AuditingFields;
 import jakarta.persistence.*;
+import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.Comment;
 
 import java.io.Serializable;
+import java.time.LocalDateTime;
 
-@NoArgsConstructor
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Getter
 @Entity
-@Table(name = "lecture_apply")
+@Table(name = "lecture_schedule")
 public class LectureScheduleEntity extends AuditingFields implements Serializable {
-
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -27,14 +28,19 @@ public class LectureScheduleEntity extends AuditingFields implements Serializabl
 
     @Column(name = "start_dt", nullable = false)
     @Comment("특강 시작일시")
-    private String startDt;
+    private LocalDateTime startDt;
 
     @Column(name = "end_dt", nullable = false)
     @Comment("특강 종료일시")
-    private String endDt;
+    private LocalDateTime endDt;
 
+    @Version
     @Column(name = "apply_cnt", nullable = false)
     @Comment("신청인원수")
     private Integer applyCnt;
 
+    // 신청인원수 증가 메서드
+    public void incrementApplyCnt() {
+        this.applyCnt++;
+    }
 }

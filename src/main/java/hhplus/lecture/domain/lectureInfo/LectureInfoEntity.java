@@ -2,6 +2,7 @@ package hhplus.lecture.domain.lectureInfo;
 
 import hhplus.lecture.domain.AuditingFields;
 import jakarta.persistence.Entity;
+import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import jakarta.persistence.*;
@@ -9,7 +10,7 @@ import org.hibernate.annotations.Comment;
 
 import java.io.Serializable;
 
-@NoArgsConstructor
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Getter
 @Entity
 @Table(name = "lecture_info")

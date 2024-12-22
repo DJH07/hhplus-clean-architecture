@@ -1,6 +1,5 @@
 package hhplus.lecture.config;
 
 public final class Constants {
-    public static final String DOMAIN_NAME = "";
-//    public static final String STORE_PATH = "/home/upload";
+    public static final Integer MAX_APPLICANTS = 30;
 }
