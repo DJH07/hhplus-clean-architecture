@@ -1,4 +1,4 @@
-package io.hhplus.config;
+package hhplus.lecture.config;
 
 public final class Constants {
     public static final String DOMAIN_NAME = "";

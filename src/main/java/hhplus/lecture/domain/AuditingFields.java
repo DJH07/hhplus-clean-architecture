@@ -1,4 +1,4 @@
-package io.hhplus.auditing;
+package hhplus.lecture.domain;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.EntityListeners;

@@ -1,4 +1,4 @@
-package io.hhplus.config;
+package hhplus.lecture.config;
 
 import com.zaxxer.hikari.HikariDataSource;
 import lombok.RequiredArgsConstructor;
@@ -20,9 +20,9 @@ import java.util.Map;
 import java.util.Objects;
 
 @Configuration
-@ComponentScan(basePackages = "io.hhplus")
+@ComponentScan(basePackages = "hhplus.lecture")
 @EnableJpaRepositories(
-        basePackages = "io.hhplus.repository",
+        basePackages = "hhplus.lecture.repository",
         entityManagerFactoryRef = "entityManagerFactory",
         transactionManagerRef = "transactionManager")
 @RequiredArgsConstructor
@@ -51,7 +51,7 @@ public class JpaConfig {
         propertiesHashMap.put("hibernate.physical_naming_strategy", DEFAULT_NAMING_STRATEGY);
 
         return builder.dataSource(defaultDataSource())
-                .packages("io.hhplus.entity")
+                .packages("hhplus.lecture.entity")
                 .persistenceUnit("hhplusCleanArchitectureEntityManager")
                 .properties(propertiesHashMap)
                 .build();
