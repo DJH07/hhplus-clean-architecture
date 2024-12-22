@@ -1,0 +1,16 @@
+spring:
+  application:
+    name: hhplus-clean-architecture
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/hhplus_clean_architecture?characterEncoding=utf8&useUnicode=true
+    username: hhplus
+    password: hhplus1234
+  jpa:
+    hibernate:
+      ddl-auto: validate
+    show-sql: true
+
+server:
+  port: 8080
+
