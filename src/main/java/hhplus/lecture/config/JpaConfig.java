@@ -22,7 +22,7 @@ import java.util.Objects;
 @Configuration
 @ComponentScan(basePackages = "hhplus.lecture")
 @EnableJpaRepositories(
-        basePackages = "hhplus.lecture.repository",
+        basePackages = "hhplus.lecture.infrastructure",
         entityManagerFactoryRef = "entityManagerFactory",
         transactionManagerRef = "transactionManager")
 @RequiredArgsConstructor
