@@ -13,11 +13,11 @@ public class LectureScheduleService {
     private final LectureScheduleRepository lectureScheduleRepository;
 
     /**
-     * 신청 인원이 MAX_CNT에 도달했는지 확인하는 메서드
+     * 신청 인원이 MAX_CNT에 도달했는지 확인하고 신청 인원수 증가하는 메서드
      *
      * @param scheduleId 특강 일정 ID
      */
-    public void hasReachedMaxApplicants(Long scheduleId) {
+    public void validateAndUpdateAppyCnt(Long scheduleId) {
         // 1. 일정 정보 존재 여부 확인
         LectureScheduleEntity lectureSchedule = lectureScheduleRepository.findById(scheduleId);
 
@@ -25,13 +25,8 @@ public class LectureScheduleService {
         if(lectureSchedule.getApplyCnt() >= MAX_APPLICANTS) {
             throw new BusinessException(LectureErrorCode.MAX_APPLICANTS_REACHED);
         }
-    }
 
-    /*
-    * 신청인원수 업로드하는 메서드
-    */
-    public void updateApplyCnt(Long scheduleId) {
-        LectureScheduleEntity lectureSchedule = lectureScheduleRepository.findById(scheduleId);
+        // 3. 신청 인원수 증가
         lectureSchedule.incrementApplyCnt();
     }
 

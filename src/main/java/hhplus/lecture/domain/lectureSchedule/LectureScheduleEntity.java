@@ -34,10 +34,14 @@ public class LectureScheduleEntity extends AuditingFields implements Serializabl
     @Comment("특강 종료일시")
     private LocalDateTime endDt;
 
-    @Version
     @Column(name = "apply_cnt", nullable = false)
     @Comment("신청인원수")
     private Integer applyCnt;
+
+    @Version
+    @Column(name = "version", nullable = false)
+    @Comment("버전")
+    private Integer version;
 
     // 신청인원수 증가 메서드
     public void incrementApplyCnt() {
