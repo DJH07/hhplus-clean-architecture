@@ -1,4 +1,4 @@
-package hhplus.lecture.util.error;
+package hhplus.lecture.domain.error;
 
 import lombok.Getter;
 

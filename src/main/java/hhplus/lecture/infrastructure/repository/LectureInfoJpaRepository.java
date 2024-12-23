@@ -1,4 +1,4 @@
-package hhplus.lecture.infrastructure;
+package hhplus.lecture.infrastructure.repository;
 
 import hhplus.lecture.domain.lectureInfo.LectureInfoEntity;
 import jakarta.transaction.Transactional;

@@ -1,8 +1,8 @@
 package hhplus.lecture.domain.lectureApply;
 
 
-import hhplus.lecture.util.enumtype.LectureErrorCode;
-import hhplus.lecture.util.error.BusinessException;
+import hhplus.lecture.domain.error.LectureErrorCode;
+import hhplus.lecture.domain.error.BusinessException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 

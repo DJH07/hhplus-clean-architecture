@@ -1,11 +1,11 @@
 package hhplus.lecture.domain.lectureSchedule;
 
-import hhplus.lecture.util.enumtype.LectureErrorCode;
-import hhplus.lecture.util.error.BusinessException;
+import hhplus.lecture.domain.error.LectureErrorCode;
+import hhplus.lecture.domain.error.BusinessException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
-import static hhplus.lecture.config.Constants.MAX_APPLICANTS;
+import static hhplus.lecture.domain.util.Constants.MAX_APPLICANTS;
 
 @Service
 @RequiredArgsConstructor

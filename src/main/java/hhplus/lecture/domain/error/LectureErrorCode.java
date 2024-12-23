@@ -1,7 +1,7 @@
-package hhplus.lecture.util.enumtype;
+package hhplus.lecture.domain.error;
 
 
-import hhplus.lecture.util.error.ErrorCodeEnu;
+import hhplus.lecture.domain.error.ErrorCodeEnu;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 

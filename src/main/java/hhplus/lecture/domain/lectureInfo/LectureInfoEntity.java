@@ -1,6 +1,6 @@
 package hhplus.lecture.domain.lectureInfo;
 
-import hhplus.lecture.domain.AuditingFields;
+import hhplus.lecture.domain.util.AuditingFields;
 import jakarta.persistence.Entity;
 import lombok.AccessLevel;
 import lombok.Getter;

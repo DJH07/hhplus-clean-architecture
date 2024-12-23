@@ -2,13 +2,11 @@ package hhplus.lecture.infrastructure.impl;
 
 import hhplus.lecture.domain.lectureSchedule.LectureScheduleEntity;
 import hhplus.lecture.domain.lectureSchedule.LectureScheduleRepository;
-import hhplus.lecture.infrastructure.LectureScheduleJpaRepository;
-import hhplus.lecture.util.enumtype.LectureErrorCode;
-import hhplus.lecture.util.error.BusinessException;
+import hhplus.lecture.infrastructure.repository.LectureScheduleJpaRepository;
+import hhplus.lecture.domain.error.LectureErrorCode;
+import hhplus.lecture.domain.error.BusinessException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
-
-import java.util.Optional;
 
 @Repository
 @RequiredArgsConstructor

@@ -1,4 +1,4 @@
-package hhplus.lecture.config;
+package hhplus.lecture.interfaces.config;
 
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.MediaType;

@@ -2,8 +2,7 @@ package hhplus.lecture.infrastructure.impl;
 
 import hhplus.lecture.domain.lectureApply.LectureApplyEntity;
 import hhplus.lecture.domain.lectureApply.LectureApplyRepository;
-import hhplus.lecture.infrastructure.LectureApplyJpaRepository;
-import jdk.jfr.Description;
+import hhplus.lecture.infrastructure.repository.LectureApplyJpaRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
 

@@ -1,4 +1,4 @@
-package hhplus.lecture.config;
+package hhplus.lecture.infrastructure.config;
 
 import com.zaxxer.hikari.HikariDataSource;
 import lombok.RequiredArgsConstructor;
@@ -51,7 +51,7 @@ public class JpaConfig {
         propertiesHashMap.put("hibernate.physical_naming_strategy", DEFAULT_NAMING_STRATEGY);
 
         return builder.dataSource(defaultDataSource())
-                .packages("hhplus.lecture.entity")
+                .packages("hhplus.lecture.domain")
                 .persistenceUnit("hhplusCleanArchitectureEntityManager")
                 .properties(propertiesHashMap)
                 .build();
