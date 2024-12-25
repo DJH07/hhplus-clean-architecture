@@ -1,6 +1,6 @@
 package hhplus.lecture.infrastructure.repository;
 
-import hhplus.lecture.domain.lectureInfo.LectureInfoEntity;
+import hhplus.lecture.domain.lectureSchedule.LectureInfoEntity;
 import jakarta.transaction.Transactional;
 import org.springframework.data.jpa.repository.JpaRepository;
 

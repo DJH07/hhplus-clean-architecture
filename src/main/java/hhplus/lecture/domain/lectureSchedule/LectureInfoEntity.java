@@ -1,4 +1,4 @@
-package hhplus.lecture.domain.lectureInfo;
+package hhplus.lecture.domain.lectureSchedule;
 
 import hhplus.lecture.domain.util.AuditingFields;
 import jakarta.persistence.Entity;

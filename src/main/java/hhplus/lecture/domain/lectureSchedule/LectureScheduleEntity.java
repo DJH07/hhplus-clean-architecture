@@ -38,6 +38,12 @@ public class LectureScheduleEntity extends AuditingFields implements Serializabl
     @Comment("신청인원수")
     private Integer applyCnt;
 
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "lecture_id", referencedColumnName = "lecture_id", updatable = false, nullable = false, insertable = false)
+    @Comment("특강 정보")
+    private LectureInfoEntity lectureInfo;
+
+
 
     public static LectureScheduleEntity create(Long lectureId, LocalDateTime startDt, LocalDateTime endDt) {
         LectureScheduleEntity entity = new LectureScheduleEntity();

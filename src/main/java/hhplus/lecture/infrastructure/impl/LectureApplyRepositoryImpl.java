@@ -6,6 +6,7 @@ import hhplus.lecture.infrastructure.repository.LectureApplyJpaRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
 import java.util.Optional;
 
 @Repository
@@ -22,6 +23,11 @@ public class LectureApplyRepositoryImpl implements LectureApplyRepository {
     public Long saveAndGetId(LectureApplyEntity lectureApplyEntity) {
         LectureApplyEntity lectureApply = lectureApplyJpaRepository.save(lectureApplyEntity);
         return lectureApply.getApplyId();
+    }
+
+    @Override
+    public List<Long> findScheduleIdsByUserId(Long userId) {
+        return lectureApplyJpaRepository.findScheduleIdsByUserId(userId);
     }
 
 }

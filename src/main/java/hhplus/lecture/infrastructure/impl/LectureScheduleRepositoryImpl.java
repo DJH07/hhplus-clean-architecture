@@ -4,10 +4,14 @@ import hhplus.lecture.domain.error.BusinessException;
 import hhplus.lecture.domain.error.LectureErrorCode;
 import hhplus.lecture.domain.lectureSchedule.LectureScheduleEntity;
 import hhplus.lecture.domain.lectureSchedule.LectureScheduleRepository;
+import hhplus.lecture.infrastructure.dto.LectureScheduleProjection;
 import hhplus.lecture.infrastructure.repository.LectureScheduleJpaRepository;
 import jakarta.persistence.LockTimeoutException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
+
+import java.time.LocalDateTime;
+import java.util.List;
 
 @Repository
 @RequiredArgsConstructor
@@ -24,4 +28,10 @@ public class LectureScheduleRepositoryImpl implements LectureScheduleRepository 
             throw new BusinessException(LectureErrorCode.LOCK_TIMEOUT);
         }
     }
+
+    @Override
+    public List<LectureScheduleProjection> findAllByUserIdAndDate(List<Long> scheduleIds, LocalDateTime startDt, LocalDateTime endDt) {
+        return lectureScheduleJpaRepository.findAllExcludingIdsAndByDateRange(scheduleIds, startDt, endDt);
+    }
+
 }
