@@ -1,4 +1,4 @@
-package hhplus.lecture.domain.lectureSchedule.dto;
+package hhplus.lecture.domain.dto;
 
 public record LectureScheduleResult(
         Long scheduleId,

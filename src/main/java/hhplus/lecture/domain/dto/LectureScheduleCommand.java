@@ -1,4 +1,4 @@
-package hhplus.lecture.domain.lectureSchedule.dto;
+package hhplus.lecture.domain.dto;
 
 import java.util.List;
 

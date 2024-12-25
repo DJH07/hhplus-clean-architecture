@@ -13,7 +13,10 @@ import java.io.Serializable;
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Getter
 @Entity
-@Table(name = "lecture_apply")
+@Table(name = "lecture_apply",
+        uniqueConstraints = {
+                @UniqueConstraint(columnNames = {"user_id", "schedule_id"})
+        })
 public class LectureApplyEntity extends AuditingFields implements Serializable {
 
     @Id

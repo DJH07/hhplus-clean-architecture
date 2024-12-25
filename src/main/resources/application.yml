@@ -14,14 +14,14 @@ spring:
 ---
 
 spring:
+  config:
+    activate:
+      on-profile: common
   jpa:
-    hibernate:
-      ddl-auto: common
-      jpa:
-        properties:
-          hibernate:
-            show-sql: true
-            format-sql: true
+    properties:
+      hibernate:
+        show-sql: true
+        format-sql: true
 server:
   servlet:
     encoding:
@@ -62,5 +62,9 @@ spring:
         hibernate:
             ddl-auto: create-drop
             dialect: org.hibernate.dialect.H2Dialect
+  h2:
+    console:
+      enabled: true
+      path: /h2-console
   server:
     port: 8081

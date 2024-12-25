@@ -2,8 +2,8 @@ package hhplus.lecture.domain.lectureSchedule;
 
 import hhplus.lecture.domain.error.BusinessException;
 import hhplus.lecture.domain.error.LectureErrorCode;
-import hhplus.lecture.domain.lectureSchedule.dto.LectureScheduleCommand;
-import hhplus.lecture.domain.lectureSchedule.dto.LectureScheduleResult;
+import hhplus.lecture.domain.dto.LectureScheduleCommand;
+import hhplus.lecture.domain.dto.LectureScheduleResult;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 

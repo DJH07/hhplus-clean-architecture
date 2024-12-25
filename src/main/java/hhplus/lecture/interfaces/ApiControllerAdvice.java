@@ -1,5 +1,7 @@
-package hhplus.lecture.domain.error;
+package hhplus.lecture.interfaces;
 
+import hhplus.lecture.domain.error.BusinessException;
+import hhplus.lecture.domain.error.ErrorResponse;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ExceptionHandler;
