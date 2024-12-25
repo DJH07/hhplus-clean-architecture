@@ -49,6 +49,7 @@ public class JpaConfig {
     public LocalContainerEntityManagerFactoryBean entityManagerFactory(EntityManagerFactoryBuilder builder) {
         Map<String, String> propertiesHashMap = new HashMap<>();
         propertiesHashMap.put("hibernate.physical_naming_strategy", DEFAULT_NAMING_STRATEGY);
+        propertiesHashMap.put("hibernate.hbm2ddl.auto", "create");
 
         return builder.dataSource(defaultDataSource())
                 .packages("hhplus.lecture.domain")

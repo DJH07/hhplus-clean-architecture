@@ -19,8 +19,9 @@ public class LectureApplyRepositoryImpl implements LectureApplyRepository {
     }
 
     @Override
-    public LectureApplyEntity save(LectureApplyEntity lectureApplyEntity) {
-        return lectureApplyJpaRepository.save(lectureApplyEntity);
+    public Long saveAndGetId(LectureApplyEntity lectureApplyEntity) {
+        LectureApplyEntity lectureApply = lectureApplyJpaRepository.save(lectureApplyEntity);
+        return lectureApply.getApplyId();
     }
 
 }

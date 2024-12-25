@@ -5,10 +5,28 @@ spring:
     active: dev
     group:
       dev:
+        - common
         - dev
       test:
+        - common
         - test
 
+---
+
+spring:
+  jpa:
+    hibernate:
+      ddl-auto: common
+      jpa:
+        properties:
+          hibernate:
+            show-sql: true
+            format-sql: true
+server:
+  servlet:
+    encoding:
+      charset: UTF-8
+      force: true
 ---
 
 spring:
@@ -21,11 +39,10 @@ spring:
     username: hhplus
     password: hhplus1234
     jpa:
-      hibernate:
-        ddl-auto: validate
-        dialect: org.hibernate.dialect.MySQL8Dialect
-        show-sql: true
-        format-sql: true
+      properties:
+        hibernate:
+            ddl-auto: validate
+            dialect: org.hibernate.dialect.MySQL8Dialect
   server:
     port: 8080
 
@@ -41,10 +58,9 @@ spring:
     username: sa
     password:
     jpa:
-      hibernate:
-        ddl-auto: create-drop
-        dialect: org.hibernate.dialect.H2Dialect
-        show-sql: true
-        format-sql: true
+      properties:
+        hibernate:
+            ddl-auto: create-drop
+            dialect: org.hibernate.dialect.H2Dialect
   server:
     port: 8081

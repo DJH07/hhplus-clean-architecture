@@ -38,13 +38,17 @@ public class LectureScheduleEntity extends AuditingFields implements Serializabl
     @Comment("신청인원수")
     private Integer applyCnt;
 
-    @Version
-    @Column(name = "version", nullable = false)
-    @Comment("버전")
-    private Integer version;
 
-    // 신청인원수 증가 메서드
-    public void incrementApplyCnt() {
-        this.applyCnt++;
+    public static LectureScheduleEntity create(Long lectureId, LocalDateTime startDt, LocalDateTime endDt) {
+        LectureScheduleEntity entity = new LectureScheduleEntity();
+        entity.lectureId = lectureId;
+        entity.startDt = startDt;
+        entity.endDt = endDt;
+        entity.applyCnt = 0;
+        return entity;
+    }
+
+    public void changeApplyCnt(Integer applyCnt) {
+        this.applyCnt = applyCnt;
     }
 }

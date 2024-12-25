@@ -5,6 +5,8 @@ import hhplus.lecture.domain.error.BusinessException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
+
 import static hhplus.lecture.domain.util.Constants.MAX_APPLICANTS;
 
 @Service
@@ -18,16 +20,21 @@ public class LectureScheduleService {
      * @param scheduleId 특강 일정 ID
      */
     public void validateAndUpdateAppyCnt(Long scheduleId) {
-        // 1. 일정 정보 존재 여부 확인
-        LectureScheduleEntity lectureSchedule = lectureScheduleRepository.findById(scheduleId);
+        // 1. 일정 정보 존재 여부 확인 (존재하지 않을 시 NOT_FOUND 오류)
+        LectureScheduleEntity lectureSchedule = lectureScheduleRepository.findByIdWithLock(scheduleId);
 
-        // 2. 최대 인원수 도달 여부
+        // 2. 최대 인원수 도달 여부 확인
         if(lectureSchedule.getApplyCnt() >= MAX_APPLICANTS) {
             throw new BusinessException(LectureErrorCode.MAX_APPLICANTS_REACHED);
         }
 
-        // 3. 신청 인원수 증가
-        lectureSchedule.incrementApplyCnt();
+        // 3. 특강 시작 시간과 같거나 지났을 경우, 실패 처리
+        if(!lectureSchedule.getStartDt().isAfter(LocalDateTime.now())) {
+            throw new BusinessException(LectureErrorCode.APPLICATION_PERIOD_CLOSED);
+        }
+
+        // 4. 신청 인원수 증가
+        lectureSchedule.changeApplyCnt(lectureSchedule.getApplyCnt() + 1);
     }
 
 }

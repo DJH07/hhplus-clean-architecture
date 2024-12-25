@@ -10,5 +10,5 @@ public interface LectureApplyRepository {
     Optional<LectureApplyEntity> findByUserIdAndScheduleId(Long userId, Long scheduleId);
 
     @Description("저장 메서드")
-    LectureApplyEntity save(LectureApplyEntity lectureApplyEntity);
+    Long saveAndGetId(LectureApplyEntity lectureApplyEntity);
 }
