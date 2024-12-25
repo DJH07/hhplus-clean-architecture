@@ -1,6 +1,7 @@
 package hhplus.lecture.infrastructure.repository;
 
 import hhplus.lecture.domain.lectureSchedule.LectureScheduleEntity;
+import hhplus.lecture.infrastructure.dto.LectureApplyProjection;
 import hhplus.lecture.infrastructure.dto.LectureScheduleProjection;
 import jakarta.persistence.LockModeType;
 import jakarta.persistence.QueryHint;
@@ -46,4 +47,19 @@ public interface LectureScheduleJpaRepository extends JpaRepository<LectureSched
             @Param("endDt") LocalDateTime endDt,
             @Param("maxApplicants") Integer maxApplicants
     );
+
+    @Query("SELECT new hhplus.lecture.infrastructure.dto.LectureApplyProjection(" +
+            "ls.scheduleId," +
+            "ls.lectureId," +
+            "l.title," +
+            "l.lecturerName," +
+            "l.lectureDescription," +
+            "ls.startDt," +
+            "ls.endDt" +
+            ") " +
+            "FROM LectureScheduleEntity ls " +
+            "JOIN LectureInfoEntity l ON ls.lectureId = l.lectureId " +
+            "WHERE ls.scheduleId NOT IN :scheduleIds  " +
+            "ORDER BY ls.startDt ASC, ls.lectureId ASC")
+    List<LectureApplyProjection> findAllExcludingIds(@Param("scheduleIds") List<Long> scheduleIds);
 }

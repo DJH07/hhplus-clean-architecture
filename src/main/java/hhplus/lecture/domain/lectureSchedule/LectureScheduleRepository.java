@@ -1,5 +1,6 @@
 package hhplus.lecture.domain.lectureSchedule;
 
+import hhplus.lecture.infrastructure.dto.LectureApplyProjection;
 import hhplus.lecture.infrastructure.dto.LectureScheduleProjection;
 import jdk.jfr.Description;
 
@@ -14,4 +15,6 @@ public interface LectureScheduleRepository {
     @Description("유저별 신청가능 특강정보 조회")
     List<LectureScheduleProjection> findAllByUserIdAndDate(List<Long> scheduleIds, LocalDateTime startDt, LocalDateTime endDt, Integer maxApplicants);
 
+    @Description("유저별 신청완료 특강정보 조회")
+    List<LectureApplyProjection> findAllByUserId(List<Long> scheduleIds);
 }

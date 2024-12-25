@@ -4,6 +4,7 @@ import hhplus.lecture.domain.error.BusinessException;
 import hhplus.lecture.domain.error.LectureErrorCode;
 import hhplus.lecture.domain.lectureSchedule.LectureScheduleEntity;
 import hhplus.lecture.domain.lectureSchedule.LectureScheduleRepository;
+import hhplus.lecture.infrastructure.dto.LectureApplyProjection;
 import hhplus.lecture.infrastructure.dto.LectureScheduleProjection;
 import hhplus.lecture.infrastructure.repository.LectureScheduleJpaRepository;
 import jakarta.persistence.LockTimeoutException;
@@ -32,6 +33,11 @@ public class LectureScheduleRepositoryImpl implements LectureScheduleRepository 
     @Override
     public List<LectureScheduleProjection> findAllByUserIdAndDate(List<Long> scheduleIds, LocalDateTime startDt, LocalDateTime endDt, Integer maxApplicants) {
         return lectureScheduleJpaRepository.findAllExcludingIdsAndByDateRange(scheduleIds, startDt, endDt, maxApplicants);
+    }
+
+    @Override
+    public List<LectureApplyProjection> findAllByUserId(List<Long> scheduleIds) {
+        return lectureScheduleJpaRepository.findAllExcludingIds(scheduleIds);
     }
 
 }

@@ -1,8 +1,7 @@
 package hhplus.lecture.application;
 
-import hhplus.lecture.application.dto.AvailableLectureRequest;
-import hhplus.lecture.application.dto.LectureApplyRequest;
-import hhplus.lecture.application.dto.LectureScheduleResponse;
+import hhplus.lecture.application.dto.*;
+import hhplus.lecture.domain.dto.LectureApplyCommand;
 import hhplus.lecture.domain.dto.LectureScheduleCommand;
 import hhplus.lecture.domain.dto.LectureScheduleResult;
 import hhplus.lecture.domain.lectureApply.LectureApplyService;
@@ -12,7 +11,6 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Component
 @RequiredArgsConstructor
@@ -50,6 +48,24 @@ public class LectureFacade {
                         result.startDt(),
                         result.endDt(),
                         result.applyCnt()))
-                .collect(Collectors.toList());
+                .toList();
+    }
+
+    public List<LectureApplyResponse> getUserApplyInfos(UserApplyRequest request) {
+
+        List<Long> applyScheduleIds = lectureApplyService.getScheduleIdsByUserId(request.userId());
+
+        return lectureScheduleService.getLectureApplyResultList(new LectureApplyCommand(applyScheduleIds))
+                .stream()
+                .map(dto -> new LectureApplyResponse(
+                        dto.scheduleId(),
+                        dto.lectureId(),
+                        dto.title(),
+                        dto.lecturerName(),
+                        dto.lectureDescription(),
+                        dto.startDt(),
+                        dto.endDt()
+                ))
+                .toList();
     }
 }

@@ -1,9 +1,11 @@
 package hhplus.lecture.domain.lectureSchedule;
 
-import hhplus.lecture.domain.error.BusinessException;
-import hhplus.lecture.domain.error.LectureErrorCode;
+import hhplus.lecture.domain.dto.LectureApplyCommand;
+import hhplus.lecture.domain.dto.LectureApplyResult;
 import hhplus.lecture.domain.dto.LectureScheduleCommand;
 import hhplus.lecture.domain.dto.LectureScheduleResult;
+import hhplus.lecture.domain.error.BusinessException;
+import hhplus.lecture.domain.error.LectureErrorCode;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -53,7 +55,6 @@ public class LectureScheduleService {
         LocalDateTime endDt = date.atStartOfDay().plusDays(1);
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
 
-
         // 2. 강의시작시간이 이미 지났다면 검색 조회 대상 제외
         // (검색조건 시작시간이 지금시간보다 이전이면, startDt를 현재 시간으로)
         LocalDateTime currentDt = LocalDateTime.now();
@@ -73,6 +74,22 @@ public class LectureScheduleService {
                         dto.startDt().format(formatter),
                         dto.endDt().format(formatter),
                         dto.applyCnt()
+                ))
+                .toList();
+    }
+
+    public List<LectureApplyResult> getLectureApplyResultList(LectureApplyCommand command) {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+        return lectureScheduleRepository.findAllByUserId(command.scheduleIds())
+                .stream()
+                .map(dto -> new LectureApplyResult(
+                        dto.scheduleId(),
+                        dto.lectureId(),
+                        dto.title(),
+                        dto.lecturerName(),
+                        dto.lectureDescription(),
+                        dto.startDt().format(formatter),
+                        dto.endDt().format(formatter)
                 ))
                 .toList();
     }
