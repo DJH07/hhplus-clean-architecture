@@ -34,9 +34,8 @@ public class LectureInfoEntity extends AuditingFields implements Serializable {
     @Comment("특강 설명")
     private String lectureDescription;
 
-    public static LectureInfoEntity create(Long lectureId, String title, String lecturerName, String lectureDescription) {
+    public static LectureInfoEntity create(String title, String lecturerName, String lectureDescription) {
         LectureInfoEntity entity = new LectureInfoEntity();
-        entity.lectureId = lectureId;
         entity.title = title;
         entity.lecturerName = lecturerName;
         entity.lectureDescription = lectureDescription;

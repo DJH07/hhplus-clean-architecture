@@ -26,7 +26,7 @@ public class LectureApplyService {
         }
 
         // 2. 신청 정보를 저장한다.
-        LectureApplyEntity lectureApply = new LectureApplyEntity(userId, scheduleId);
+        LectureApplyEntity lectureApply = LectureApplyEntity.create(userId, scheduleId);
         return lectureApplyRepository.saveAndGetId(lectureApply);
     }
 

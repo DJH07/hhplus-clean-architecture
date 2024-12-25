@@ -12,6 +12,6 @@ public interface LectureScheduleRepository {
     LectureScheduleEntity findByIdWithLock(Long id);
 
     @Description("유저별 신청가능 특강정보 조회")
-    List<LectureScheduleProjection> findAllByUserIdAndDate(List<Long> scheduleIds, LocalDateTime startDt, LocalDateTime endDt);
+    List<LectureScheduleProjection> findAllByUserIdAndDate(List<Long> scheduleIds, LocalDateTime startDt, LocalDateTime endDt, Integer maxApplicants);
 
 }

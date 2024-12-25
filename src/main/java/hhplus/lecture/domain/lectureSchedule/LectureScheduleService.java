@@ -51,6 +51,8 @@ public class LectureScheduleService {
         LocalDate date = LocalDate.parse(command.date(), DateTimeFormatter.ofPattern("yyyy-MM-dd"));
         LocalDateTime startDt = date.atStartOfDay();
         LocalDateTime endDt = date.atStartOfDay().plusDays(1);
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+
 
         // 2. 강의시작시간이 이미 지났다면 검색 조회 대상 제외
         // (검색조건 시작시간이 지금시간보다 이전이면, startDt를 현재 시간으로)
@@ -59,11 +61,8 @@ public class LectureScheduleService {
             startDt = currentDt.plusNanos(1);
         }
 
-        // 3. LectureScheduleProjection의 날짜 형식을 String으로 변환할 formatter
-        final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
-
-        // 4. scheduleIds에 포함되지 않고, 검색 날짜 내인 강의 정보 조회
-        return lectureScheduleRepository.findAllByUserIdAndDate(command.scheduleIds(), startDt, endDt)
+        // 3. scheduleIds에 포함되지 않고, 검색 날짜 내인 강의 정보 조회
+        return lectureScheduleRepository.findAllByUserIdAndDate(command.scheduleIds(), startDt, endDt, MAX_APPLICANTS)
                 .stream()
                 .map(dto -> new LectureScheduleResult(
                         dto.scheduleId(),

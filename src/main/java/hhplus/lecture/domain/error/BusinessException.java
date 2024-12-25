@@ -7,9 +7,9 @@ import lombok.Getter;
  */
 @Getter
 public class BusinessException extends RuntimeException {
-    private final ErrorCodeEnu errorCode;
+    private final ErrorCodeEnum errorCode;
 
-    public BusinessException(ErrorCodeEnu errorCode) {
+    public BusinessException(ErrorCodeEnum errorCode) {
         super(errorCode.getMsg());
         this.errorCode = errorCode;
     }

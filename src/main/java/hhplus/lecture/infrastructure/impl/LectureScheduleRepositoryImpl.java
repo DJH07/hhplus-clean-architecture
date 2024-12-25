@@ -30,8 +30,8 @@ public class LectureScheduleRepositoryImpl implements LectureScheduleRepository 
     }
 
     @Override
-    public List<LectureScheduleProjection> findAllByUserIdAndDate(List<Long> scheduleIds, LocalDateTime startDt, LocalDateTime endDt) {
-        return lectureScheduleJpaRepository.findAllExcludingIdsAndByDateRange(scheduleIds, startDt, endDt);
+    public List<LectureScheduleProjection> findAllByUserIdAndDate(List<Long> scheduleIds, LocalDateTime startDt, LocalDateTime endDt, Integer maxApplicants) {
+        return lectureScheduleJpaRepository.findAllExcludingIdsAndByDateRange(scheduleIds, startDt, endDt, maxApplicants);
     }
 
 }

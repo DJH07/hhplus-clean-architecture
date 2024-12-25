@@ -40,8 +40,10 @@ public class LectureApplyEntity extends AuditingFields implements Serializable {
     private LectureScheduleEntity lectureSchedule;
 
 
-    public LectureApplyEntity(Long userId, Long scheduleId) {
-        this.userId = userId;
-        this.scheduleId = scheduleId;
+    public static LectureApplyEntity create(Long userId, Long scheduleId) {
+        LectureApplyEntity entity = new LectureApplyEntity();
+        entity.userId = userId;
+        entity.scheduleId = scheduleId;
+        return entity;
     }
 }

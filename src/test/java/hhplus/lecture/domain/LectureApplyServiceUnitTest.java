@@ -35,7 +35,7 @@ class LectureApplyServiceUnitTest {
 
         // 중복 신청이 이미 존재한다고 가정
         when(lectureApplyRepository.findByUserIdAndScheduleId(userId, scheduleId))
-                .thenReturn(Optional.of(new LectureApplyEntity(userId, scheduleId)));
+                .thenReturn(Optional.of(LectureApplyEntity.create(userId, scheduleId)));
 
         // when & then
         BusinessException exception = assertThrows(BusinessException.class,

@@ -8,7 +8,7 @@ import org.springframework.http.HttpStatus;
  * 오류 코드 종류
  */
 @RequiredArgsConstructor
-public enum LectureErrorCode implements ErrorCodeEnu {
+public enum LectureErrorCode implements ErrorCodeEnum {
     INVALID_USER_ID(HttpStatus.BAD_REQUEST, "사용자 ID가 유효하지 않습니다."),
     INVALID_LECTURE_ID(HttpStatus.BAD_REQUEST, "강의정보 ID가 유효하지 않습니다."),
     INVALID_SCHEDULE_ID(HttpStatus.BAD_REQUEST, "강의일정정보 ID가 유효하지 않습니다."),

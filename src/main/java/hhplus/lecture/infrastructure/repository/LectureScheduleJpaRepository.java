@@ -4,7 +4,6 @@ import hhplus.lecture.domain.lectureSchedule.LectureScheduleEntity;
 import hhplus.lecture.infrastructure.dto.LectureScheduleProjection;
 import jakarta.persistence.LockModeType;
 import jakarta.persistence.QueryHint;
-import jakarta.transaction.Transactional;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Lock;
 import org.springframework.data.jpa.repository.Query;
@@ -15,7 +14,6 @@ import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 
-@Transactional
 public interface LectureScheduleJpaRepository extends JpaRepository<LectureScheduleEntity, Long> {
 
     @Lock(LockModeType.PESSIMISTIC_WRITE)
@@ -36,14 +34,16 @@ public interface LectureScheduleJpaRepository extends JpaRepository<LectureSched
             "ls.applyCnt" +
             ") " +
             "FROM LectureScheduleEntity ls " +
-            "JOIN LectureInfoEntity l " +
+            "JOIN LectureInfoEntity l ON ls.lectureId = l.lectureId " +
             "WHERE ls.scheduleId NOT IN :scheduleIds " +
             "AND ls.startDt >= :startDt " +
             "AND ls.startDt < :endDt " +
+            "AND ls.applyCnt < :maxApplicants " +
             "ORDER BY ls.startDt ASC, ls.lectureId ASC ")
     List<LectureScheduleProjection> findAllExcludingIdsAndByDateRange(
             @Param("scheduleIds") List<Long> scheduleIds,
             @Param("startDt") LocalDateTime startDt,
-            @Param("endDt") LocalDateTime endDt
+            @Param("endDt") LocalDateTime endDt,
+            @Param("maxApplicants") Integer maxApplicants
     );
 }

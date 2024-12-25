@@ -17,11 +17,6 @@ spring:
   config:
     activate:
       on-profile: common
-  jpa:
-    properties:
-      hibernate:
-        show-sql: true
-        format-sql: true
 server:
   servlet:
     encoding:
@@ -38,11 +33,13 @@ spring:
     url: jdbc:mysql://localhost:3306/hhplus_clean_architecture?characterEncoding=utf8&useUnicode=true
     username: hhplus
     password: hhplus1234
-    jpa:
-      properties:
-        hibernate:
-            ddl-auto: validate
-            dialect: org.hibernate.dialect.MySQL8Dialect
+  jpa:
+    properties:
+      hibernate:
+        ddl-auto: validate
+        dialect: org.hibernate.dialect.MySQL8Dialect
+        show-sql: true
+        format-sql: true
   server:
     port: 8080
 
@@ -57,11 +54,13 @@ spring:
     url: jdbc:h2:mem:testdb;MODE=MySQL;DATABASE_TO_UPPER=false
     username: sa
     password:
-    jpa:
-      properties:
-        hibernate:
-            ddl-auto: create-drop
-            dialect: org.hibernate.dialect.H2Dialect
+  jpa:
+    properties:
+      hibernate:
+        ddl-auto: create-drop
+        dialect: org.hibernate.dialect.H2Dialect
+        show-sql: true
+        format-sql: true
   h2:
     console:
       enabled: true
