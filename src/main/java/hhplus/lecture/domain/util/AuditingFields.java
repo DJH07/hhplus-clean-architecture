@@ -1,13 +1,11 @@
-package io.hhplus.auditing;
+package hhplus.lecture.domain.util;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.EntityListeners;
 import jakarta.persistence.MappedSuperclass;
 import lombok.Getter;
 import lombok.ToString;
-import org.springframework.data.annotation.CreatedBy;
 import org.springframework.data.annotation.CreatedDate;
-import org.springframework.data.annotation.LastModifiedBy;
 import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 import org.springframework.format.annotation.DateTimeFormat;
@@ -22,12 +20,12 @@ public class AuditingFields {
 
     @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME)
     @CreatedDate
-    @Column(name = "REG_DT", nullable = false, updatable = false)
-    private LocalDateTime regDt; // 등록일시
+    @Column(name = "created_at", nullable = false, updatable = false)
+    private LocalDateTime createdAt; // 등록일시
 
     @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME)
     @LastModifiedDate
-    @Column(name = "MDFCN_DT", nullable = false)
-    private LocalDateTime mdfcnDt; //수정일시
+    @Column(name = "modified_at", nullable = false)
+    private LocalDateTime modifiedAt; //수정일시
 
 }
