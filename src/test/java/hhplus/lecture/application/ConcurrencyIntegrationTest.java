@@ -44,6 +44,7 @@ class ConcurrencyIntegrationTest {
     @DisplayName("STEP03 - 40명이 동시에 신청 시 30명만 성공하고, 나머지 10명은 실패해야 한다.")
     void testApplyForLectureWithConcurrency() throws InterruptedException {
         // given
+        lectureApplyJpaRepository.deleteAll();
         // 특강 정보 생성
         LectureInfoEntity lecture = LectureInfoEntity.create(
                 "자바 특강",
@@ -117,6 +118,7 @@ class ConcurrencyIntegrationTest {
     @DisplayName("STEP04 - 동일한 사용자가 같은 정보를 5번 신청하여 동시성 문제 발생")
     void shouldFail_WhenSameUserAppliesTwiceConcurrently() throws InterruptedException {
         // given
+        lectureApplyJpaRepository.deleteAll();
         // 특강 정보 생성
         LectureInfoEntity lecture = LectureInfoEntity.create(
                 "자바 특강",

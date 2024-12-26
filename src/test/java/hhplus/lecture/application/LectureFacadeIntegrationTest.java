@@ -43,6 +43,7 @@ class LectureFacadeIntegrationTest {
     @DisplayName("특강 신청 - 특강 신청이 정상적으로 처리되는 경우")
     void shouldApplySuccessfully_WhenValidScheduleAndUser() {
         // given
+        lectureApplyJpaRepository.deleteAll();
         // 특강 정보 생성
         LectureInfoEntity lecture = LectureInfoEntity.create(
                 "자바 특강",
@@ -86,6 +87,7 @@ class LectureFacadeIntegrationTest {
     @DisplayName("신청가능 특강정보리스트 조회 - 사용자가 신청하지 않은 특강 일정이 올바르게 조회되는 경우")
     void shouldReturnAvailableLectureSchedules_WhenUserHasNotApplied() {
         // given
+        lectureApplyJpaRepository.deleteAll();
         // 특강 정보 생성
         LectureInfoEntity lecture1 = LectureInfoEntity.create(
                 "자바 특강",
@@ -117,8 +119,8 @@ class LectureFacadeIntegrationTest {
         // 특강 시작 시간이 지난 경우
         LectureScheduleEntity schedule3 = LectureScheduleEntity.create(
                 savedLecture2.getLectureId(),
-                lectureDate.plusDays(2),
-                lectureDate.plusDays(2).plusHours(2)
+                lectureDate.minusDays(5),
+                lectureDate.minusDays(5).plusHours(2)
         );
         // 특강 정원이 모두 찬 경우
         LectureScheduleEntity schedule4 = LectureScheduleEntity.create(
@@ -127,13 +129,14 @@ class LectureFacadeIntegrationTest {
                 lectureDate.plusHours(2)
         );
         schedule4.changeApplyCnt(30);
+
         LectureScheduleEntity savedSchedule1 = lectureScheduleJpaRepository.save(schedule1);
         LectureScheduleEntity savedSchedule2 = lectureScheduleJpaRepository.save(schedule2);
         lectureScheduleJpaRepository.save(schedule3);
-        lectureScheduleJpaRepository.save(schedule4);
+        lectureScheduleJpaRepository.saveAndFlush(schedule4);
 
         // 사용자가 신청한 특강 일정 저장
-        final long userId = 1L;
+        final long userId = 95L;
         LectureApplyEntity appliedSchedule = LectureApplyEntity.create(userId, savedSchedule1.getScheduleId());
         lectureApplyJpaRepository.save(appliedSchedule);
 
@@ -163,6 +166,7 @@ class LectureFacadeIntegrationTest {
     @DisplayName("신청완료 리스트 조회 - 사용자가 신청한 특강 일정 정보가 올바르게 조회되는 경우")
     void shouldReturnUserAppliedLectureInfos_WhenUserHasApplied() {
         // given
+        lectureApplyJpaRepository.deleteAll();
         // 특강 정보 생성
         LectureInfoEntity lecture1 = LectureInfoEntity.create(
                 "자바 특강",
@@ -202,11 +206,8 @@ class LectureFacadeIntegrationTest {
         lectureApplyJpaRepository.save(appliedSchedule1);
         lectureApplyJpaRepository.save(appliedSchedule2);
 
-        // 요청 객체 생성
-        UserApplyRequest request = new UserApplyRequest(userId);
-
         // when
-        List<LectureApplyResponse> appliedLectures = lectureFacade.getUserApplyInfos(request);
+        List<LectureApplyResponse> appliedLectures = lectureFacade.getUserApplyInfos(new UserApplyRequest(userId));
 
         // then
         assertNotNull(appliedLectures);

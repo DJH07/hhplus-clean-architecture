@@ -10,8 +10,9 @@ import org.springframework.http.HttpStatus;
 @RequiredArgsConstructor
 public enum LectureErrorCode implements ErrorCodeEnum {
     INVALID_USER_ID(HttpStatus.BAD_REQUEST, "사용자 ID가 유효하지 않습니다."),
-    INVALID_LECTURE_ID(HttpStatus.BAD_REQUEST, "강의정보 ID가 유효하지 않습니다."),
     INVALID_SCHEDULE_ID(HttpStatus.BAD_REQUEST, "강의일정정보 ID가 유효하지 않습니다."),
+    INVALID_DATE(HttpStatus.BAD_REQUEST, "날짜를 입력해주세요."),
+    INVALID_DATE_FORMAT(HttpStatus.BAD_REQUEST, "날짜 형식은 yyyy-MM-dd이어야 합니다."),
     NOT_FOUND_SCHEDULE(HttpStatus.NOT_FOUND, "해당 강의일정정보가 존재하지 않습니다."),
     MAX_APPLICANTS_REACHED(HttpStatus.BAD_REQUEST, "최대 신청 인원에 도달했습니다."),
     APPLICATION_PERIOD_CLOSED(HttpStatus.BAD_REQUEST, "특강 신청 시간이 지났습니다."),

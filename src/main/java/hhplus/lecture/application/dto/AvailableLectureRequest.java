@@ -1,16 +1,35 @@
 package hhplus.lecture.application.dto;
 
-import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotNull;
-import jakarta.validation.constraints.Pattern;
-import jakarta.validation.constraints.Positive;
+import hhplus.lecture.domain.error.BusinessException;
+import hhplus.lecture.domain.error.LectureErrorCode;
+
+import java.time.LocalDate;
+import java.time.format.DateTimeParseException;
 
 public record AvailableLectureRequest(
-        @NotNull(message = "사용자 ID를 입력해주세요.")
-        @Positive(message = "사용자 ID는 반드시 0보다 커야 합니다.")
         Long userId,
-
-        @NotBlank(message = "날짜를 입력해주세요.")
-        @Pattern(regexp = "^\\d{4}-\\d{2}-\\d{2}$", message = "날짜 형식은 yyyy-MM-dd이어야 합니다.")
         String date
-) {}
+) {
+        public AvailableLectureRequest(Long userId, String date) {
+                validateUserId(userId);
+                this.userId = userId;
+                this.date = parseDate(date);
+        }
+
+        private void validateUserId(Long userId) {
+                if (userId == null || userId <= 0) {
+                        throw new BusinessException(LectureErrorCode.INVALID_USER_ID);
+                }
+        }
+
+        private String parseDate(String date) {
+                if (date == null || date.isBlank()) {
+                        throw new BusinessException(LectureErrorCode.INVALID_DATE);
+                }
+                try {
+                        LocalDate.parse(date);
+                        return date;
+                } catch (DateTimeParseException e) {
+                        throw new BusinessException(LectureErrorCode.INVALID_DATE_FORMAT);
+                }
+        }}
