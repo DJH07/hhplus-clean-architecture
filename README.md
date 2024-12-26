@@ -58,6 +58,8 @@ interface
 ## 3. ERD 설계
 ![image](https://github.com/user-attachments/assets/151d0cf4-ee11-42b8-a8d0-e77e53fae6e4)
 
+- 공통 컬럼 : **created_at**, **modified_at**
+  
 **lecture_info** : 강의 정보 테이블
 - lecture_id : 강의 정보 `id`
 
