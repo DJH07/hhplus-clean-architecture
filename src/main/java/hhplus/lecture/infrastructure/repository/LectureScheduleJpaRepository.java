@@ -19,7 +19,7 @@ public interface LectureScheduleJpaRepository extends JpaRepository<LectureSched
 
     @Lock(LockModeType.PESSIMISTIC_WRITE)
     @QueryHints({
-            @QueryHint(name = "javax.persistence.lock.timeout", value = "5000") // 타임아웃 5초
+            @QueryHint(name = "javax.persistence.lock.timeout", value = "5000")
     })
     @Query("SELECT l FROM LectureScheduleEntity l WHERE l.scheduleId = :id")
     Optional<LectureScheduleEntity> findByIdWithLock(@Param("id") Long id);
@@ -59,7 +59,7 @@ public interface LectureScheduleJpaRepository extends JpaRepository<LectureSched
             ") " +
             "FROM LectureScheduleEntity ls " +
             "JOIN LectureInfoEntity l ON ls.lectureId = l.lectureId " +
-            "WHERE ls.scheduleId NOT IN :scheduleIds  " +
+            "WHERE ls.scheduleId IN :scheduleIds  " +
             "ORDER BY ls.startDt ASC, ls.lectureId ASC")
-    List<LectureApplyProjection> findAllExcludingIds(@Param("scheduleIds") List<Long> scheduleIds);
+    List<LectureApplyProjection> findAllInIds(@Param("scheduleIds") List<Long> scheduleIds);
 }

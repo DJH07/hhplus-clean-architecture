@@ -1,8 +1,6 @@
 package hhplus.lecture.application;
 
-import hhplus.lecture.application.dto.AvailableLectureRequest;
-import hhplus.lecture.application.dto.LectureApplyRequest;
-import hhplus.lecture.application.dto.LectureScheduleResponse;
+import hhplus.lecture.application.dto.*;
 import hhplus.lecture.domain.error.BusinessException;
 import hhplus.lecture.domain.error.LectureErrorCode;
 import hhplus.lecture.domain.lectureApply.LectureApplyEntity;
@@ -42,7 +40,7 @@ class LectureFacadeIntegrationTest {
 
 
     @Test
-    @DisplayName("성공 - 특강 신청이 정상적으로 처리되는 경우")
+    @DisplayName("특강 신청 - 특강 신청이 정상적으로 처리되는 경우")
     void shouldApplySuccessfully_WhenValidScheduleAndUser() {
         // given
         // 특강 정보 생성
@@ -85,7 +83,7 @@ class LectureFacadeIntegrationTest {
     }
 
     @Test
-    @DisplayName("성공 - 사용자가 신청하지 않은 특강 일정이 올바르게 조회되는 경우")
+    @DisplayName("신청가능 특강정보리스트 조회 - 사용자가 신청하지 않은 특강 일정이 올바르게 조회되는 경우")
     void shouldReturnAvailableLectureSchedules_WhenUserHasNotApplied() {
         // given
         // 특강 정보 생성
@@ -159,6 +157,80 @@ class LectureFacadeIntegrationTest {
         assertEquals(savedSchedule2.getStartDt().format(formatter), response.startDt());
         assertEquals(savedSchedule2.getEndDt().format(formatter), response.endDt());
         assertEquals(savedSchedule2.getApplyCnt(), response.applyCnt());
+    }
+
+    @Test
+    @DisplayName("신청완료 리스트 조회 - 사용자가 신청한 특강 일정 정보가 올바르게 조회되는 경우")
+    void shouldReturnUserAppliedLectureInfos_WhenUserHasApplied() {
+        // given
+        // 특강 정보 생성
+        LectureInfoEntity lecture1 = LectureInfoEntity.create(
+                "자바 특강",
+                "김자바",
+                "김자바의 자바 특강."
+        );
+        LectureInfoEntity lecture2 = LectureInfoEntity.create(
+                "스프링 특강",
+                "박스프링",
+                "박스프링의 스프링 특강."
+        );
+        LectureInfoEntity savedLecture1 = lectureInfoJpaRepository.save(lecture1);
+        LectureInfoEntity savedLecture2 = lectureInfoJpaRepository.save(lecture2);
+
+        // 특강 일정 정보 생성
+        // 아직 지나지 않은 강의 일정
+        LocalDateTime lectureDate = LocalDateTime.now().plusDays(1);
+        LectureScheduleEntity schedule1 = LectureScheduleEntity.create(
+                savedLecture1.getLectureId(),
+                lectureDate,
+                lectureDate.plusHours(2)
+        );
+        // 지난 강의 일정
+        lectureDate = LocalDateTime.now().plusDays(3);
+        LectureScheduleEntity schedule2 = LectureScheduleEntity.create(
+                savedLecture2.getLectureId(),
+                lectureDate,
+                lectureDate.plusHours(2)
+        );
+        LectureScheduleEntity savedSchedule1 = lectureScheduleJpaRepository.save(schedule1);
+        LectureScheduleEntity savedSchedule2 = lectureScheduleJpaRepository.save(schedule2);
+
+        // 사용자가 신청한 특강 일정 저장
+        final long userId = 1L;
+        LectureApplyEntity appliedSchedule1 = LectureApplyEntity.create(userId, savedSchedule1.getScheduleId());
+        LectureApplyEntity appliedSchedule2 = LectureApplyEntity.create(userId, savedSchedule2.getScheduleId());
+        lectureApplyJpaRepository.save(appliedSchedule1);
+        lectureApplyJpaRepository.save(appliedSchedule2);
+
+        // 요청 객체 생성
+        UserApplyRequest request = new UserApplyRequest(userId);
+
+        // when
+        List<LectureApplyResponse> appliedLectures = lectureFacade.getUserApplyInfos(request);
+
+        // then
+        assertNotNull(appliedLectures);
+        assertEquals(2, appliedLectures.size()); // 사용자가 신청한 2개의 일정이 조회되어야 함
+
+        // 첫 번째 응답 검증
+        LectureApplyResponse response1 = appliedLectures.get(0);
+        assertEquals(savedSchedule1.getScheduleId(), response1.scheduleId());
+        assertEquals(savedLecture1.getLectureId(), response1.lectureId());
+        assertEquals(savedLecture1.getTitle(), response1.title());
+        assertEquals(savedLecture1.getLecturerName(), response1.lecturerName());
+        assertEquals(savedLecture1.getLectureDescription(), response1.lectureDescription());
+        assertEquals(savedSchedule1.getStartDt().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")), response1.startDt());
+        assertEquals(savedSchedule1.getEndDt().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")), response1.endDt());
+
+        // 두 번째 응답 검증
+        LectureApplyResponse response2 = appliedLectures.get(1);
+        assertEquals(savedSchedule2.getScheduleId(), response2.scheduleId());
+        assertEquals(savedLecture2.getLectureId(), response2.lectureId());
+        assertEquals(savedLecture2.getTitle(), response2.title());
+        assertEquals(savedLecture2.getLecturerName(), response2.lecturerName());
+        assertEquals(savedLecture2.getLectureDescription(), response2.lectureDescription());
+        assertEquals(savedSchedule2.getStartDt().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")), response2.startDt());
+        assertEquals(savedSchedule2.getEndDt().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")), response2.endDt());
     }
 
 }

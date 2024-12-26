@@ -36,8 +36,8 @@ public class LectureScheduleRepositoryImpl implements LectureScheduleRepository 
     }
 
     @Override
-    public List<LectureApplyProjection> findAllByUserId(List<Long> scheduleIds) {
-        return lectureScheduleJpaRepository.findAllExcludingIds(scheduleIds);
+    public List<LectureApplyProjection> findAllInIds(List<Long> scheduleIds) {
+        return lectureScheduleJpaRepository.findAllInIds(scheduleIds);
     }
 
 }

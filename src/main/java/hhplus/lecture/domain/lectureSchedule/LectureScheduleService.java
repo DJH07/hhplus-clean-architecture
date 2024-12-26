@@ -80,7 +80,7 @@ public class LectureScheduleService {
 
     public List<LectureApplyResult> getLectureApplyResultList(LectureApplyCommand command) {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
-        return lectureScheduleRepository.findAllByUserId(command.scheduleIds())
+        return lectureScheduleRepository.findAllInIds(command.scheduleIds())
                 .stream()
                 .map(dto -> new LectureApplyResult(
                         dto.scheduleId(),
